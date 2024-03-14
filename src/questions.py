@@ -85,10 +85,11 @@ class DataAnalyzer:
         FROM df_selected
         GROUP BY date, username
         ORDER BY date DESC, post_count DESC
+        LIMIT 10
         """
-
         result = psql.sqldf(query)
         return [(row.date, row.username) for row in result.itertuples(index=False)]
+
 
     @staticmethod
     def count_emojis(text: str) -> List[str]:

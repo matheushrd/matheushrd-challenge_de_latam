@@ -2,6 +2,10 @@ from memory_profiler import profile
 from typing import List, Tuple
 from datetime import datetime
 from questions import DataAnalyzer  # Assuming DataAnalyzer is in DataAnalyzer.py
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 
 @profile
 def q1_memory() -> List[Tuple[datetime.date, str]]:
@@ -12,4 +16,4 @@ def q1_memory() -> List[Tuple[datetime.date, str]]:
     return analyzer.q1()
 
 if __name__ == '__main__':
-    q1_memory()
+    logging.info(q1_memory())
