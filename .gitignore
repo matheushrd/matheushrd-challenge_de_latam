@@ -164,3 +164,4 @@ src/creds.json
 *.json
 *.zip
 *.parquet
+*_stats
