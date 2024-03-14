@@ -14,7 +14,7 @@ from google.oauth2 import service_account
 class DataAnalyzer:
     """A class for analyzing data from a file downloaded from Google Drive and performing various analyses."""
 
-    def __init__(self, creds_path: str, file_id: str, filename: str):
+    def __init__(self):
         """
         Initializes the DataAnalyzer with the necessary credentials, file ID, and filename.
         Downloads the file from Google Drive, converts it to a parquet format, and loads it into a DataFrame.
@@ -40,15 +40,18 @@ class DataAnalyzer:
 
     def download_file(self):
         """Downloads the file from Google Drive using the service account credentials."""
-        credentials = service_account.Credentials.from_service_account_info(self.credz)
-        drive_service = build('drive', 'v3', credentials=credentials)
+        if os.path.exists(f'{self.filename}.zip'):
+            print(f"The file {self.filename}.zip already exists.")
+        else:
+            credentials = service_account.Credentials.from_service_account_info(self.credz)
+            drive_service = build('drive', 'v3', credentials=credentials)
 
-        request = drive_service.files().get_media(fileId=self.file_id)
-        fh = io.FileIO(f'{self.filename}.zip', 'wb')
-        downloader = MediaIoBaseDownload(fh, request)
-        done = False
-        while done is False:
-            _, done = downloader.next_chunk()
+            request = drive_service.files().get_media(fileId=self.file_id)
+            fh = io.FileIO(f'{self.filename}.zip', 'wb')
+            downloader = MediaIoBaseDownload(fh, request)
+            done = False
+            while done is False:
+                _, done = downloader.next_chunk()
 
     def convert_to_parquet(self):
         """
@@ -72,10 +75,11 @@ class DataAnalyzer:
         Returns:
         A list of tuples, each containing a date and the username of the top poster for that date.
         """
-        df_selected = self.df[['date', 'user']].copy()
+        df_selected = self.df.copy()
         df_selected['date'] = pd.to_datetime(df_selected['date']).dt.date
         df_selected['username'] = df_selected['user'].apply(lambda x: x.get('username', 'unknown') if isinstance(x, dict) else 'unknown')
-
+        columns = ["date", "username"]
+        df_selected = df_selected[columns]
         query = """
         SELECT date, username, COUNT(*) as post_count
         FROM df_selected
@@ -83,7 +87,7 @@ class DataAnalyzer:
         ORDER BY date DESC, post_count DESC
         """
 
-        result = psql.sqldf(query, locals())
+        result = psql.sqldf(query)
         return [(row.date, row.username) for row in result.itertuples(index=False)]
 
     @staticmethod
