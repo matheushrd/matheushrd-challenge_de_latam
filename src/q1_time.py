@@ -9,7 +9,6 @@ logging.basicConfig(level=logging.INFO)
 
 
 def q1_time(analyzer: DataAnalyzer) -> List[Tuple[datetime.date, str]]:
-    # Call the q1 method on the instance
     return analyzer.q1()
 
 

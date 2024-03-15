@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == '__main__':
     analyzer = DataAnalyzer()
+    logging.info('\n')
     logging.info(f'Answer Q1: {analyzer.q1()}\n')
     logging.info(f'Answer Q2: {analyzer.q2()}\n')
     logging.info(f'Answer Q3: {analyzer.q3()}\n')

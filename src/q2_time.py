@@ -1,5 +1,4 @@
 from typing import List, Tuple
-from datetime import datetime
 import cProfile
 from questions import DataAnalyzer
 import logging
@@ -9,7 +8,6 @@ logging.basicConfig(level=logging.INFO)
 
 
 def q2_time(analyzer: DataAnalyzer) -> List[Tuple[str, int]]:
-    # Call the q2 method on the instance
     return analyzer.q2()
 
 

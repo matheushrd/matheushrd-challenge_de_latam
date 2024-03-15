@@ -88,8 +88,9 @@ class DataAnalyzer:
         LIMIT 10
         """
         result = psql.sqldf(query)
-        return [(row.date, row.username) for row in result.itertuples(index=False)]
-
+        result['date'] = pd.to_datetime(result['date']).dt.date
+        result_list = [(result['date'][i], result['username'][i]) for i in range(10)]
+        return result_list
 
     @staticmethod
     def count_emojis(text: str) -> List[str]:
@@ -124,7 +125,6 @@ class DataAnalyzer:
             else:
                 individual_emojis.extend(list(emoji))
         return individual_emojis
-
 
     def q2(self) -> List[Tuple[str, int]]:
         """
