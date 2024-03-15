@@ -8,13 +8,10 @@ logging.basicConfig(level=logging.INFO)
 
 
 @profile
-def q3_memory() -> List[Tuple[str, int]]:
-    # Create an instance of DataAnalyzer
-    analyzer = DataAnalyzer()
-
-    # Call the q3 method on the instance
+def q3_memory(analyzer: DataAnalyzer) -> List[Tuple[str, int]]:
+    # Create an instance of DataAnalyzeR
     return analyzer.q3()
 
-if __name__ == '__main__':
-    logging.info(q3_memory())
+# if __name__ == '__main__':
+#     logging.info(q3_memory())
 

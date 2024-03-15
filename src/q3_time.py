@@ -7,12 +7,13 @@ import pstats
 
 logging.basicConfig(level=logging.INFO)
 
-analyzer = DataAnalyzer()
 
-def q3_time() -> List[Tuple[str, int]]:
+def q3_time(analyzer: DataAnalyzer) -> List[Tuple[str, int]]:
     # Call the q3 method on the instance
     return analyzer.q3()
 
-cProfile.run("q3_time()", "q3_stats")
-p = pstats.Stats("q3_stats")
-p.sort_stats("time").print_stats(20)
+
+def q3_run_profiler(analyzer: DataAnalyzer):
+    cProfile.run("q3_time(analyzer)", "q3_stats")
+    p = pstats.Stats("q3_stats")
+    p.sort_stats("time").print_stats(20)
