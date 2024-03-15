@@ -7,7 +7,35 @@ Project to data engineer skill and knowledge demonstration:
     * SQL
     * Terraform
     * AWS
-  
+
+All coments and thinking flow are commented on `develop/challenge.ipynb`.
+Minor changes are observed on `develop/questions.ipynb` where are the class `DataAnalyzer` wich contains all necessary methods to answer all questions.
+
+On `src/run.py` we call the methods that answer the questions and the memory/time measurements of three answer methods.
+
+On `src` we can see the `laod_variables` script files in case to run locally (not recommended), and the `run_docker` files, that builds an docker image and run a docker container to show all answers and memory/time executions.
+
+`src/terraform` contains the needed infraestructure declaration on terraform/hcl. This infra is hosted on AWS, that is where I have most experience working with.
+
+The app downloads the zip file from google drive using google cloud credentials. If you haven't these credentials, dowload the file and save it on `src` with filename `tweets.zip` before run `docker` or  `.py`.
+
+Credentials example:
+```json
+{
+    "type": "",
+    "project_id": "",
+    "private_key_id": "",
+    "private_key": "",
+    "client_email": "",
+    "client_id": "",
+    "auth_uri": "",
+    "token_uri": "",
+    "auth_provider_x509_cert_url": "",
+    "client_x509_cert_url": "",
+    "universe_domain": ""
+}
+```
+
 ## How to Run:
 
 ### Windows CMD: `cd src && run_docker.bat`
