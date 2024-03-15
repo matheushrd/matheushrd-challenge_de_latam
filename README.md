@@ -1,5 +1,3 @@
-# matheushrd-challenge_de_latam
-
 # Challenge Data Engineer LATAM
 
 Project to data engineer skill and knowledge demonstration:
