@@ -116,7 +116,15 @@ class DataAnalyzer:
             "\U00002702-\U000027B0"  # Dingbats
             "\U000024C2-\U0001F251"  # Enclosed Characters
             "]+", flags=regex.UNICODE)
-        return emoji_pattern.findall(text)
+        emojis = emoji_pattern.findall(text)
+        individual_emojis = []
+        for emoji in emojis:
+            if len(emoji) == 1:
+                individual_emojis.append(emoji)
+            else:
+                individual_emojis.extend(list(emoji))
+        return individual_emojis
+
 
     def q2(self) -> List[Tuple[str, int]]:
         """
